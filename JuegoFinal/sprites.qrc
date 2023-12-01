@@ -1,0 +1,44 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>sprites/48.png</file>
+        <file>sprites/49.png</file>
+        <file>sprites/50.png</file>
+        <file>sprites/enemy2_down1.png</file>
+        <file>sprites/enemy2_left.png</file>
+        <file>sprites/enemy2_right.png</file>
+        <file>sprites/enemy2_up1.png</file>
+        <file>sprites/FONDO1.png</file>
+        <file>sprites/kill1.png</file>
+        <file>sprites/kill2.png</file>
+        <file>sprites/kill3.png</file>
+        <file>sprites/kill4.png</file>
+        <file>sprites/morty.png</file>
+        <file>sprites/morty_down1.png</file>
+        <file>sprites/morty_down2.png</file>
+        <file>sprites/morty_down3.png</file>
+        <file>sprites/morty_left1.png</file>
+        <file>sprites/morty_left2.png</file>
+        <file>sprites/morty_left3.png</file>
+        <file>sprites/morty_up1.png</file>
+        <file>sprites/morty_up2.png</file>
+        <file>sprites/morty_up3.png</file>
+        <file>sprites/PngItem_4482799.png</file>
+        <file>sprites/rick.png</file>
+        <file>sprites/rick_left1.png</file>
+        <file>sprites/rick_left2.png</file>
+        <file>sprites/rick_left3.png</file>
+        <file>sprites/rick_left4.png</file>
+        <file>sprites/rick_up1.png</file>
+        <file>sprites/rick_up2.png</file>
+        <file>sprites/rick_up3.png</file>
+        <file>sprites/rick1.png</file>
+        <file>sprites/rick2.png</file>
+        <file>sprites/rick3.png</file>
+        <file>sprites/sprites.qrc</file>
+        <file>sprites/tammy_down1.png</file>
+        <file>sprites/tammy_down2.png</file>
+        <file>sprites/tammy_down3.png</file>
+        <file>sprites/tammy_up1.png</file>
+        <file>sprites/TGn27c.png</file>
+    </qresource>
+</RCC>
