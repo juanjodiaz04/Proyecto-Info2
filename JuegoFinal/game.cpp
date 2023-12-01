@@ -21,7 +21,7 @@ game::game(QWidget *parent)
     int char_num = 1;
 
 
-    pers = new main_character(char_num);//rick
+    pers = new main_character(char_num);//rick 1
     scene1->addItem(pers);
 
     //creacion enemigos
