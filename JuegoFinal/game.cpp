@@ -28,7 +28,7 @@ game::game(QWidget *parent)
     enemy1= new enemy(char_num);
     //enemy2= new enemy(2);
 
-    //añade enemigos a la lista
+    //añade enemigos a la listtt
     enemigos.push_back(enemy1);
     //enemigos.push_back(enemy2);
 
