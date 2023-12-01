@@ -25,23 +25,23 @@ game::game(QWidget *parent)
     scene1->addItem(pers);
 
     //creacion enemigos
-    enemy1= new enemy(char_num);
-    //enemy2= new enemy(2);
+    enemy1= new enemy(1);
+    enemy2= new enemy(2);
 
     //añade enemigos a la listtt
     enemigos.push_back(enemy1);
-    //enemigos.push_back(enemy2);
+    enemigos.push_back(enemy2);
 
     // añade enemigos a la escena
     scene1->addItem(enemy1);
-    //scene1->addItem(enemy2);
+    scene1->addItem(enemy2);
 
     timer_colision = new QTimer();
     timer_colision->start(100);
 
     connect(timer_colision,SIGNAL(timeout()),this,SLOT(colision_enemy_bala()));
-    QObject::connect(enemy1,SIGNAL(delete_tammy(int)),this,SLOT(remove_enemy(int)));
-
+    QObject::connect(enemy1,SIGNAL(delete_tammy()),this,SLOT(remove_enemy()));
+    QObject::connect(enemy2,SIGNAL(delete_tickets()),this,SLOT(remove_enemy2()));
 
 }
 
@@ -105,16 +105,16 @@ void game::colision_enemy_bala()
         for (int j = 0;j<enemigos.size();j++){
             if (balas[i]->collidesWithItem(enemigos[j],Qt::IntersectsItemBoundingRect))
             {
-                enemigos.at(j)->health = enemigos.at(j)->getHealt() - balas.at(i)->damage;
+                enemigos.at(j)->health = enemigos[j]->getHealt() - balas.at(i)->damage;
                 if ( enemigos.at(j)->getHealt() == 0){
-                    enemigos.at(j)->timer->stop();
+
+                    // muere enemigo
                     enemigos.at(j)->dead();
-
-                    scene1->removeItem(balas.at(i));
-
                     enemigos.removeAt(j);
+                    j--;
 
-
+                    //elimina balas
+                    scene1->removeItem(balas.at(i));
                     delete (balas[i]);
                     balas.removeAt(i);
                     i--;
@@ -123,6 +123,8 @@ void game::colision_enemy_bala()
                 else{
                     scene1->removeItem(balas.at(i));
                     balas.removeAt(i);
+                    i--;
+                    break;
                 }
 
 
@@ -132,20 +134,21 @@ void game::colision_enemy_bala()
     }
 }
 
-void game::remove_enemy(int enemi)
-{
-    if (enemi == 1){
-        scene1->removeItem(enemy1);
-    }
-    /*
-    else if (enemi == 2){
-        scene1->removeItem(enemy2);
+void game::remove_enemy2(){
+    scene1->removeItem(enemy2);
+    delete enemy2;
+}
 
-    }
-    else if (enemi == 3){
-        scene1->removeItem(enemy1);
-    }
-*/
+
+
+void game::remove_enemy()
+{
+
+     scene1->removeItem(enemy1);
+      delete enemy1;
+
+
+
 }
 
 

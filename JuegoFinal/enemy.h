@@ -24,7 +24,7 @@ public:
 
     // timers tammy
     QTimer *timer;
-    QTimer *timer_dead_tammy;
+    QTimer *timer_dead;
 
     //timer tickets plese
     QTimer *timer_tickets;
@@ -38,7 +38,8 @@ public:
 
 
 signals:
-    void delete_tammy(int tipo);
+    void delete_tammy();
+    void delete_tickets();
 public slots:
     void movetammy();
     void deadtammy();

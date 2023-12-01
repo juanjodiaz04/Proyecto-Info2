@@ -45,7 +45,8 @@ private:
 
 public slots:
     void colision_enemy_bala();
-    void remove_enemy(int enemi);
+    void remove_enemy();
+    void remove_enemy2();
 
 };
 

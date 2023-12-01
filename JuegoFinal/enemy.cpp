@@ -5,10 +5,17 @@ enemy::enemy(int tipo1)
 
     speed= 5;
     tipo=tipo1;
-    width = 60;
-    height = 60;
+    width = 55;
+    height = 55;
+
+    //timer de movimiento
+    timer = new QTimer(this);
+
+    //timer secuencia de muerte
+    timer_dead = new QTimer;
+
     if (tipo == 1){
-        timer = new QTimer(this);
+        //timer = new QTimer(this);
         timer->start(100);
         setPixmap (QPixmap(":/new/prefix1/sprites/tammy_down1.png").scaled(width,height));
         setHealth(100);
@@ -16,9 +23,8 @@ enemy::enemy(int tipo1)
         posy = 20;
         speedx = 2* speed;
         speedy = 1*speed;
-        timer_dead_tammy = new QTimer;
 
-
+        //timer_dead_tammy = new QTimer;
         connect(timer,SIGNAL(timeout()),this,SLOT(movetammy()));
 
     }
@@ -29,19 +35,19 @@ enemy::enemy(int tipo1)
         posx= 100;
         posy =100;
 
-        centerX = 100;
-        centerY = 100;
-        radius = 50;
+        centerX = 250;
+        centerY = 250;
+        radius = 150;
         omega = 0.1;
 
         //Periodo de muestreo en segundos
         T = 0.01;
         n = 0;
-        k = 2;
-        timer_tickets = new QTimer;
-        timer_tickets->start(1000);
+        k = 10;
+        //timer_tickets = new QTimer;
+        timer->start(1000*T);
         connect(timer,SIGNAL(timeout()),this,SLOT(movetickets()));
-
+        //timer_dead_tammy = new QTimer;
     }
 
 
@@ -81,15 +87,22 @@ void enemy::movetammy(){
 
 void enemy::movetickets()
 {
-
+    QTransform reflection;
+    reflection.scale(-1, 1);
 
     // Obtener el tiempo actual en segundos
 
 
-    // Calcular las nuevas coordenadas del objeto
-    // posx = centerX + radius * cos(omega * k*n*T);
-    // posy = centerY + radius * sin(omega * k*n*T);
-    posx+=10;
+    //Calcular las nuevas coordenadas del objeto
+    posx = centerX + radius * cos(omega * k*n*T);
+    posy = centerY + radius * sin(omega * k*n*T);
+    if(posx >250){
+        setPixmap((QPixmap (":/new/prefix1/sprites/enemy2_left.png").scaled(50,50).transformed(reflection)));
+    }
+    else{
+        setPixmap (QPixmap(":/new/prefix1/sprites/enemy2_left.png").scaled(width,height));
+    }
+
     setPos(posx,posy);
     n++;
 
@@ -121,7 +134,15 @@ void enemy::deadtammy()
         count++;
         if (count== 4*scale){
 
-            emit delete_tammy(tipo);
+            if (tipo == 1){
+                emit delete_tammy();
+            }
+            else if(tipo==2){
+                emit delete_tickets();
+            }
+
+
+
         }
     }
 }
@@ -132,9 +153,12 @@ float enemy::getx(){
 }
 
 void enemy::dead(){
-    timer_dead_tammy->start(30);
 
-    connect(timer_dead_tammy,SIGNAL(timeout()),this,SLOT(deadtammy()));
+    timer->stop();
+
+    timer_dead->start(30);
+
+    connect(timer_dead,SIGNAL(timeout()),this,SLOT(deadtammy()));
 
 
 }
