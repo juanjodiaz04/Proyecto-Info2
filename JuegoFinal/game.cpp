@@ -25,16 +25,20 @@ game::game(QWidget *parent)
     scene1->addItem(pers);
 
     //creacion enemigos
-    enemy1= new enemy(1);
-    enemy2= new enemy(2);
+    enemy1= new enemy(1,*pers);
+    enemy2= new enemy(2,*pers);
+    enemy3= new enemy(3,*pers);
+
 
     //añade enemigos a la listtt
     enemigos.push_back(enemy1);
     enemigos.push_back(enemy2);
+    enemigos.push_back(enemy3);
 
     // añade enemigos a la escena
     scene1->addItem(enemy1);
     scene1->addItem(enemy2);
+    scene1->addItem(enemy3);
 
     timer_colision = new QTimer();
     timer_colision->start(100);
@@ -42,6 +46,7 @@ game::game(QWidget *parent)
     connect(timer_colision,SIGNAL(timeout()),this,SLOT(colision_enemy_bala()));
     QObject::connect(enemy1,SIGNAL(delete_tammy()),this,SLOT(remove_enemy()));
     QObject::connect(enemy2,SIGNAL(delete_tickets()),this,SLOT(remove_enemy2()));
+    QObject::connect(enemy3,SIGNAL(delete_story_master()),this,SLOT(remove_enemy3()));
 
 }
 
@@ -51,7 +56,7 @@ void game::keyPressEvent(QKeyEvent *e)
     if (e->key()==Qt::Key_W && pers->pos().y() >= 0 )
     {
 
-        //obst_collition(e);
+
         pers->moveup();
 
         dir= "up";
@@ -63,12 +68,6 @@ void game::keyPressEvent(QKeyEvent *e)
         balas.append(bala);
 
     }
-
-
-
-
-
-
 
     if (e->key()==Qt::Key_A && pers->pos().x() >= 0 )
     {
@@ -95,7 +94,7 @@ void game::keyPressEvent(QKeyEvent *e)
         dir= "down";
     }
 
-    //obst_collition(e);
+
 }
 
 void game::colision_enemy_bala()
@@ -137,6 +136,12 @@ void game::colision_enemy_bala()
 void game::remove_enemy2(){
     scene1->removeItem(enemy2);
     delete enemy2;
+}
+
+void game::remove_enemy3()
+{
+    scene1->removeItem(enemy3);
+    delete enemy3;
 }
 
 

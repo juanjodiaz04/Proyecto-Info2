@@ -1,8 +1,8 @@
 #include "enemy.h"
 
-enemy::enemy(int tipo1)
+enemy::enemy(int tipo1, main_character &personaje)
 {
-
+    personaje1= &personaje;
     speed= 5;
     tipo=tipo1;
     width = 55;
@@ -18,7 +18,7 @@ enemy::enemy(int tipo1)
         //timer = new QTimer(this);
         timer->start(100);
         setPixmap (QPixmap(":/new/prefix1/sprites/tammy_down1.png").scaled(width,height));
-        setHealth(100);
+        setHealth(50);
         posx= 260;
         posy = 20;
         speedx = 2* speed;
@@ -31,7 +31,7 @@ enemy::enemy(int tipo1)
     if (tipo == 2){
 
         setPixmap (QPixmap(":/new/prefix1/sprites/enemy2_left.png").scaled(width,height));
-        setHealth(200);
+        setHealth(70);
         posx= 100;
         posy =100;
 
@@ -49,12 +49,21 @@ enemy::enemy(int tipo1)
         connect(timer,SIGNAL(timeout()),this,SLOT(movetickets()));
         //timer_dead_tammy = new QTimer;
     }
+    if (tipo==3){
+
+        timer->start(100);
+        setPixmap (QPixmap(":/new/prefix1/sprites/tammy_down1.png").scaled(width,height));
+        setHealth(100);
+        posx= 10;
+        posy = 10;
+        speed= 0.05;
+        connect(timer,SIGNAL(timeout()),this,SLOT(move_story_master()));
+
+    }
 
 
 
     setPos(posx,posy);
-
-
 
 
 }
@@ -83,6 +92,7 @@ void enemy::movetammy(){
         }
 
     }
+
 }
 
 void enemy::movetickets()
@@ -108,12 +118,21 @@ void enemy::movetickets()
 
 }
 
+void enemy::move_story_master()
+{
+
+    posx+=  speed*(personaje1->posx-posx);
+    posy+=  speed*(personaje1->posy-posy);
+
+    setPos(posx,posy);
+}
 
 
 
 
 
-void enemy::deadtammy()
+
+void enemy::dead_sequency()
 {
     scale= 4;
 
@@ -140,6 +159,9 @@ void enemy::deadtammy()
             else if(tipo==2){
                 emit delete_tickets();
             }
+            else if (tipo==3){
+                emit delete_story_master();
+            }
 
 
 
@@ -158,7 +180,7 @@ void enemy::dead(){
 
     timer_dead->start(30);
 
-    connect(timer_dead,SIGNAL(timeout()),this,SLOT(deadtammy()));
+    connect(timer_dead,SIGNAL(timeout()),this,SLOT(dead_sequency()));
 
 
 }

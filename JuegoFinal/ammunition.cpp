@@ -8,7 +8,7 @@ ammunition::ammunition(QString name,int x, int y ,QString direction)
     setPos(posx,posy);
     height = 40;
     width = 40;
-    damage= 20;
+    damage= 10;
 
     timer = new QTimer(this);
     A=9;

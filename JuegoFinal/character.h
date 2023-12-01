@@ -21,7 +21,7 @@ public:
     void setSpeed(int cant);
 
     int health;
-    int speed;
+    float speed;
     int posx = 0 ,posy = 0;
     int count= 0;
     int scale= 5;

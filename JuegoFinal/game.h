@@ -42,11 +42,14 @@ private:
     QString dir;
     enemy *enemy1;
     enemy *enemy2;
+    enemy *enemy3;
 
 public slots:
     void colision_enemy_bala();
     void remove_enemy();
     void remove_enemy2();
+    void remove_enemy3();
+
 
 };
 

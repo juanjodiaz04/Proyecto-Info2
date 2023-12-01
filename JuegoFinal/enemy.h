@@ -1,6 +1,7 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 #include "character.h"
+#include "main_character.h"
 #include <QTimer>
 #include <cmath>
 #include <QList>
@@ -10,7 +11,7 @@ class enemy:  public character
 public:
     Q_OBJECT
 public:
-    enemy(int tipo);
+    enemy(int tipo1, main_character &personaje);
 
     int tipo, damage;
     //tamy movimeinto rebota con los limites
@@ -31,8 +32,9 @@ public:
     QTimer *timer_dead_tickets;
 
     float getx();
-
     void dead();
+    main_character *personaje1;
+
 
     QRectF boundingRect() const;
 
@@ -40,10 +42,17 @@ public:
 signals:
     void delete_tammy();
     void delete_tickets();
+    void delete_story_master();
 public slots:
+    // moviemiento de los enemigos
+
     void movetammy();
-    void deadtammy();
     void movetickets();
+    void move_story_master();
+
+    // secuencia de muerte
+    void dead_sequency();
+
 
 
 
