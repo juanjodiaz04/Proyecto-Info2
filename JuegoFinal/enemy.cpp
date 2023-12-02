@@ -161,19 +161,19 @@ void enemy::dead_sequency()
     scale= 4;
 
     if(count <1 *scale){
-        setPixmap(QPixmap (":/new/prefix1/sprites/kill1.png").scaled(40,40));
+        setPixmap(QPixmap (":/new/prefix1/sprites/explosion1.png").scaled(40,40));
         count++;
     }
     else if ((count>=1*scale) && (count< scale*2)){
-        setPixmap(QPixmap (":/new/prefix1/sprites/kill2.png").scaled(40,40));
+        setPixmap(QPixmap (":/new/prefix1/sprites/explosion2.png").scaled(40,40));
         count++;
     }
     else if ((count>=2*scale) && (count< scale*3)){
-        setPixmap(QPixmap (":/new/prefix1/sprites/kill3.png").scaled(40,40));
+        setPixmap(QPixmap (":/new/prefix1/sprites/explosion3.png").scaled(40,40));
         count++;
     }
     else if((count>=3*scale) && (count< scale*4)){
-        setPixmap(QPixmap (":/new/prefix1/sprites/kill4.png").scaled(50,50));
+        setPixmap(QPixmap (":/new/prefix1/sprites/explosion4.png").scaled(50,50));
         count++;
         if (count== 4*scale){
 

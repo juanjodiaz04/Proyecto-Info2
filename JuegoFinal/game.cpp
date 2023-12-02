@@ -18,7 +18,7 @@ game::game(QWidget *parent)
     scene1->setSceneRect(0,0,(ui->graphicsView->width() - 2)/sc_factor,(ui->graphicsView->height() - 2)/sc_factor); //
     ui->graphicsView->scale(sc_factor,sc_factor);
 
-
+    update_text();
 
     int char_num = 1;
 
@@ -104,6 +104,30 @@ void game::keyPressEvent(QKeyEvent *e)
 
 }
 
+void game::update_text()
+{
+
+    ui->label->setStyleSheet("font-weight: bold; font-style: italic; text-decoration: underline; color: white; background-color: black;");
+    ui->label_2->setStyleSheet("font-weight: bold; font-style: italic; text-decoration: underline; color: white; background-color: black;");
+    ui->enemy1->setStyleSheet("font-weight: bold; font-style: italic; text-decoration: underline; color: white; background-color: black;");
+    ui->enemy2->setStyleSheet("font-weight: bold; font-style: italic; text-decoration: underline; color: white; background-color: black;");
+    ui->enemy3->setStyleSheet("font-weight: bold; font-style: italic; text-decoration: underline; color: white; background-color: black;");
+    ui->cant1->setStyleSheet("font-weight: bold; font-style: italic; text-decoration: underline; color: white; background-color: black;");
+    ui->cant2->setStyleSheet("font-weight: bold; font-style: italic; text-decoration: underline; color: white; background-color: black;");
+    ui->cant3->setStyleSheet("font-weight: bold; font-style: italic; text-decoration: underline; color: white; background-color: black;");
+
+
+    ui->label->setText("HEALTH: ");
+    ui->enemy1->setText("ENEMIGO 1: ");
+    ui->enemy2->setText("ENEMIGO 2: ");
+    ui->enemy3->setText("ENEMIGO 3: ");
+
+    labels= new QTimer();
+    labels->start(100);
+
+    connect(labels,SIGNAL(timeout()),this,SLOT(update_label()));
+}
+
 void game::colision_enemy_bala()
 {
     for (int i = 0; i < balas.size(); i++)
@@ -163,6 +187,62 @@ void game::remove_enemy3()
 {
     scene1->removeItem(enemy3);
     delete enemy3;
+}
+
+void game::update_label()
+{
+    ui->label_2->clear();
+    ui->cant1->clear();
+    ui->cant2->clear();
+    ui->cant3->clear();
+
+    QString enemig1 = QString::number(enemy1->health);
+    QString enemig2 = QString::number(enemy2->health);
+    QString enemig3 = QString::number(enemy3->health);
+    QString personaje = QString::number(pers->health);
+
+    if(pers->health != 0){
+        ui->label_2->setText(personaje);
+    }
+    else{
+        pers->health = 0;
+        ui->label_2->setText("0");
+    }
+
+    if(enemy1->health != 0 && aux1== false){
+
+        ui->cant1->setText(enemig1);
+
+    }
+    else{
+
+        ui->cant1->setText("0");
+        aux1= true;
+
+    }
+    if(enemy2->health != 0 && aux2 == false){
+
+        ui->cant2->setText(enemig2);
+    }
+    else{
+
+        ui->cant2->setText("0");
+        aux2= true;
+
+    }
+    if(enemy3->health != 0 && aux3 == false){
+
+        ui->cant3->setText(enemig3);
+
+    }
+    else{
+
+        ui->cant3->setText("0");
+        aux3= true;
+    }
+
+
+
 }
 
 

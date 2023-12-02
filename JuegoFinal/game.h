@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include <QMainWindow>
-
+#include <QString>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include "character.h"
@@ -25,10 +25,13 @@ public:
     ~game();
     void setLevel1();
     void keyPressEvent(QKeyEvent *e);
+    void update_text();
 
+    bool aux1 = false, aux2= false, aux3=false;
 
     QTimer *timer_colision;
     QTimer *timer_colision_pers;
+    QTimer *labels;
 
     QList <ammunition*> balas;
     QList <enemy*> enemigos;
@@ -56,6 +59,7 @@ public slots:
     void remove_enemy();
     void remove_enemy2();
     void remove_enemy3();
+    void update_label();
 
 
 };

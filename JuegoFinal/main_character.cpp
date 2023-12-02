@@ -10,7 +10,7 @@ main_character::main_character(int tipo1)
         posy = 250;
         setPos(posx,posy);
         speed = 8;
-        health=200;
+        health=110;
 
     }
 

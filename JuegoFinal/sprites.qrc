@@ -44,5 +44,9 @@
         <file>sprites/enemy3_down2.png</file>
         <file>sprites/enemy3_down3.png</file>
         <file>sprites/rick_sinvida.png</file>
+        <file>sprites/explosion1.png</file>
+        <file>sprites/explosion2.png</file>
+        <file>sprites/explosion3.png</file>
+        <file>sprites/explosion4.png</file>
     </qresource>
 </RCC>
