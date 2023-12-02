@@ -54,7 +54,7 @@ compile_commands.json
 *_qmlcache.qrc
 
 JuegoFinal/JuegoFinal.pro.user
-build-JuegoFinal-Desktop_Qt_6_5_2_MinGW_64_bit-Debug/
+build/
 *.idx
 *.exe
 *.idx
