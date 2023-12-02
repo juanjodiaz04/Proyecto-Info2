@@ -18,6 +18,8 @@ game::game(QWidget *parent)
     scene1->setSceneRect(0,0,(ui->graphicsView->width() - 2)/sc_factor,(ui->graphicsView->height() - 2)/sc_factor); //
     ui->graphicsView->scale(sc_factor,sc_factor);
 
+
+
     int char_num = 1;
 
 
@@ -43,7 +45,12 @@ game::game(QWidget *parent)
     timer_colision = new QTimer();
     timer_colision->start(100);
 
+    timer_colision_pers= new QTimer();
+    timer_colision_pers->start(1000);
+
+
     connect(timer_colision,SIGNAL(timeout()),this,SLOT(colision_enemy_bala()));
+    connect(timer_colision_pers,SIGNAL(timeout()),this,SLOT(colision_character_enemy()));
     QObject::connect(enemy1,SIGNAL(delete_tammy()),this,SLOT(remove_enemy()));
     QObject::connect(enemy2,SIGNAL(delete_tickets()),this,SLOT(remove_enemy2()));
     QObject::connect(enemy3,SIGNAL(delete_story_master()),this,SLOT(remove_enemy3()));
@@ -125,9 +132,23 @@ void game::colision_enemy_bala()
                     i--;
                     break;
                 }
+            }
 
 
+        }
+    }
+}
 
+void game::colision_character_enemy()
+{
+    for (int j = 0 ;j<enemigos.size();j++){
+        if(pers->collidesWithItem(enemigos[j],Qt::IntersectsItemBoundingRect)){
+            pers->health -= enemigos.at(j)->damage;
+            pers->colision();
+            if (pers->health<=0){
+                timer_colision_pers->stop();
+                delete pers;
+                break;
             }
         }
     }
@@ -149,8 +170,9 @@ void game::remove_enemy3()
 void game::remove_enemy()
 {
 
-     scene1->removeItem(enemy1);
-      delete enemy1;
+    scene1->removeItem(enemy1);
+
+    delete enemy1;
 
 
 

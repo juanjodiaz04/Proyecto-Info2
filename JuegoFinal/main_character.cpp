@@ -6,15 +6,28 @@ main_character::main_character(int tipo1)
     tipo=tipo1;
     if (tipo == 1){
         setPixmap (QPixmap(":/new/prefix1/sprites/rick1.png").scaled(50,50));
-    }
-    if (tipo == 0){
-        setPixmap (QPixmap(":/new/prefix1/sprites/morty_down1.png").scaled(50,50));
+        posx= 250;
+        posy = 250;
+        setPos(posx,posy);
+        speed = 8;
+        health=200;
+
     }
 
-    posx= 250;
-    posy = 250;
-    setPos(posx,posy);
-    speed = 9;
+
+
+
+    if (tipo == 0){
+        setPixmap (QPixmap(":/new/prefix1/sprites/morty_down1.png").scaled(50,50));
+        posx= 250;
+        posy = 250;
+        setPos(posx,posy);
+        speed = 10;
+        health=100;
+
+    }
+
+
 
 
 }
@@ -222,4 +235,14 @@ void main_character::movedown()
     }
     posy+=speed;
     setPos(posx, posy);
+}
+
+void main_character::colision()
+{
+    setPixmap(QPixmap (":/new/prefix1/sprites/rick_sinvida.png").scaled(50,50));
+}
+
+QRectF main_character::boundingRect() const
+{
+     return QRectF(-50/2, -50/2, 2*50, 2*50);
 }

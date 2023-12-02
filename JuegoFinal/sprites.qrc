@@ -40,5 +40,9 @@
         <file>sprites/tammy_down3.png</file>
         <file>sprites/tammy_up1.png</file>
         <file>sprites/TGn27c.png</file>
+        <file>sprites/enemy3_down1.png</file>
+        <file>sprites/enemy3_down2.png</file>
+        <file>sprites/enemy3_down3.png</file>
+        <file>sprites/rick_sinvida.png</file>
     </qresource>
 </RCC>

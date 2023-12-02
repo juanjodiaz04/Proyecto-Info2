@@ -15,6 +15,9 @@ public:
     void movedown();
     int tipo;
 
+    void colision();
+    QRectF boundingRect() const;
+
 };
 
 #endif // MAIN_CHARACTER_H

@@ -28,8 +28,8 @@ public:
     QTimer *timer_dead;
 
     //timer tickets plese
-    QTimer *timer_tickets;
-    QTimer *timer_dead_tickets;
+    //QTimer *timer_image_story;
+    //QTimer *timer_dead_tickets;
 
     float getx();
     void dead();

@@ -15,7 +15,7 @@ enemy::enemy(int tipo1, main_character &personaje)
     timer_dead = new QTimer;
 
     if (tipo == 1){
-        //timer = new QTimer(this);
+
         timer->start(100);
         setPixmap (QPixmap(":/new/prefix1/sprites/tammy_down1.png").scaled(width,height));
         setHealth(50);
@@ -23,8 +23,9 @@ enemy::enemy(int tipo1, main_character &personaje)
         posy = 20;
         speedx = 2* speed;
         speedy = 1*speed;
+        damage= 10;
 
-        //timer_dead_tammy = new QTimer;
+
         connect(timer,SIGNAL(timeout()),this,SLOT(movetammy()));
 
     }
@@ -34,6 +35,8 @@ enemy::enemy(int tipo1, main_character &personaje)
         setHealth(70);
         posx= 100;
         posy =100;
+
+        damage=15;
 
         centerX = 250;
         centerY = 250;
@@ -57,6 +60,7 @@ enemy::enemy(int tipo1, main_character &personaje)
         posx= 10;
         posy = 10;
         speed= 0.05;
+        damage=20;
         connect(timer,SIGNAL(timeout()),this,SLOT(move_story_master()));
 
     }
@@ -118,8 +122,28 @@ void enemy::movetickets()
 
 }
 
+
+
+
 void enemy::move_story_master()
 {
+
+    scale= 3;
+    if  (count<=1 *scale ){
+        setPixmap (QPixmap(":/new/prefix1/sprites/enemy3_down1.png").scaled(width,height));
+        count++;
+    }
+    else if(count <= 2* scale){
+        setPixmap (QPixmap(":/new/prefix1/sprites/enemy3_down2.png").scaled(width,height));
+        count++;
+    }
+    else if(count <= 3* scale){
+        setPixmap (QPixmap(":/new/prefix1/sprites/enemy3_down3.png").scaled(width,height));
+        count++;
+        if (count == 3*scale){
+            count= 0;
+        }
+    }
 
     posx+=  speed*(personaje1->posx-posx);
     posy+=  speed*(personaje1->posy-posy);
@@ -137,15 +161,15 @@ void enemy::dead_sequency()
     scale= 4;
 
     if(count <1 *scale){
-        setPixmap(QPixmap (":/new/prefix1/sprites/kill1.png").scaled(50,50));
+        setPixmap(QPixmap (":/new/prefix1/sprites/kill1.png").scaled(40,40));
         count++;
     }
     else if ((count>=1*scale) && (count< scale*2)){
-        setPixmap(QPixmap (":/new/prefix1/sprites/kill2.png").scaled(50,50));
+        setPixmap(QPixmap (":/new/prefix1/sprites/kill2.png").scaled(40,40));
         count++;
     }
     else if ((count>=2*scale) && (count< scale*3)){
-        setPixmap(QPixmap (":/new/prefix1/sprites/kill3.png").scaled(50,50));
+        setPixmap(QPixmap (":/new/prefix1/sprites/kill3.png").scaled(40,40));
         count++;
     }
     else if((count>=3*scale) && (count< scale*4)){

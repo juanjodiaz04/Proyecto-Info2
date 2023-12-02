@@ -25,7 +25,11 @@ public:
     ~game();
     void setLevel1();
     void keyPressEvent(QKeyEvent *e);
+
+
     QTimer *timer_colision;
+    QTimer *timer_colision_pers;
+
     QList <ammunition*> balas;
     QList <enemy*> enemigos;
 signals:
@@ -39,6 +43,8 @@ private:
     QGraphicsPixmapItem *level1;
     main_character *pers;
     ammunition *bala;
+
+
     QString dir;
     enemy *enemy1;
     enemy *enemy2;
@@ -46,6 +52,7 @@ private:
 
 public slots:
     void colision_enemy_bala();
+    void colision_character_enemy();
     void remove_enemy();
     void remove_enemy2();
     void remove_enemy3();
