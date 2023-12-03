@@ -23,7 +23,7 @@ class game : public QMainWindow
 public:
     game(QWidget *parent = nullptr);
     ~game();
-    void setLevel1();
+
     void keyPressEvent(QKeyEvent *e);
     void update_text();
 
@@ -35,8 +35,14 @@ public:
 
     QList <ammunition*> balas;
     QList <enemy*> enemigos;
+
+     void set_level1();
 signals:
     void colision();
+
+    void end_level1(int num);
+
+    void main_menu();
 
 
 private:
@@ -55,12 +61,23 @@ private:
     bool main_exist = false;
 
 public slots:
+
+    // set levels
+    //void set_level1();
+
+    //colisiones level1
     void colision_enemy_bala();
     void colision_character_enemy();
+
+    //eliminar enemigos
     void remove_enemy();
     void remove_enemy2();
     void remove_enemy3();
+
+    //actualizar label de vida
     void update_label();
+
+    void finish_level1(int num);
 
 
 };

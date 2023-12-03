@@ -8,6 +8,13 @@ game::game(QWidget *parent)
 
 
     ui->setupUi(this);
+    set_level1();
+
+
+}
+
+void game::set_level1()
+{
     scene1= new QGraphicsScene();
     ui->graphicsView->setScene(scene1);
 
@@ -52,12 +59,15 @@ game::game(QWidget *parent)
 
     connect(timer_colision,SIGNAL(timeout()),this,SLOT(colision_enemy_bala()));
     connect(timer_colision_pers,SIGNAL(timeout()),this,SLOT(colision_character_enemy()));
+
+    //final de levels
+    connect(this,SIGNAL(end_level1(int)),this,SLOT(finish_level1(int)));
+
+    // remover enemigos por vida
     QObject::connect(enemy1,SIGNAL(delete_tammy()),this,SLOT(remove_enemy()));
     QObject::connect(enemy2,SIGNAL(delete_tickets()),this,SLOT(remove_enemy2()));
     QObject::connect(enemy3,SIGNAL(delete_story_master()),this,SLOT(remove_enemy3()));
-
 }
-
 
 void game::keyPressEvent(QKeyEvent *e)
 {
@@ -131,37 +141,44 @@ void game::update_text()
     connect(labels,SIGNAL(timeout()),this,SLOT(update_label()));
 }
 
+
 void game::colision_enemy_bala()
 {
-    for (int i = 0; i < balas.size(); i++)
-    {
-        for (int j = 0;j<enemigos.size();j++){
-            if (balas[i]->collidesWithItem(enemigos[j],Qt::IntersectsItemBoundingRect))
-            {
-                enemigos.at(j)->health = enemigos[j]->getHealt() - balas.at(i)->damage;
-                if ( enemigos.at(j)->getHealt() == 0){
 
-                    // muere enemigo
-                    enemigos.at(j)->dead();
-                    enemigos.removeAt(j);
-                    j--;
+    if (enemigos.size()== 0){
+        emit end_level1(0);
+    }
+    else{
+        for (int i = 0; i < balas.size(); i++)
+        {
+            for (int j = 0;j<enemigos.size();j++){
+                if (balas[i]->collidesWithItem(enemigos[j],Qt::IntersectsItemBoundingRect))
+                {
+                    enemigos.at(j)->health = enemigos[j]->getHealt() - balas.at(i)->damage;
+                    if ( enemigos.at(j)->getHealt() == 0){
 
-                    //elimina balas
-                    scene1->removeItem(balas.at(i));
-                    delete (balas[i]);
-                    balas.removeAt(i);
-                    i--;
-                    break;
+                        // muere enemigo
+                        enemigos.at(j)->dead();
+                        enemigos.removeAt(j);
+                        j--;
+
+                        //elimina balas
+                        scene1->removeItem(balas.at(i));
+                        delete (balas[i]);
+                        balas.removeAt(i);
+                        i--;
+                        break;
+                    }
+                    else{
+                        scene1->removeItem(balas.at(i));
+                        balas.removeAt(i);
+                        i--;
+                        break;
+                    }
                 }
-                else{
-                    scene1->removeItem(balas.at(i));
-                    balas.removeAt(i);
-                    i--;
-                    break;
-                }
+
+
             }
-
-
         }
     }
 }
@@ -176,6 +193,9 @@ void game::colision_character_enemy()
                 timer_colision_pers->stop();
                 delete pers;
                 main_exist = false;
+                emit end_level1(1);
+
+
                 break;
             }
         }
@@ -246,6 +266,49 @@ void game::update_label()
     }
 
 
+
+}
+
+void game::finish_level1(int num)
+{
+
+    if (num == 0){
+
+        ui->label->setVisible(false);
+        ui->label_2->setVisible(false);
+        ui->enemy1->setVisible(false);
+        ui->enemy2->setVisible(false);
+        ui->enemy3->setVisible(false);
+        ui->cant2->setVisible(false);
+        ui->cant3->setVisible(false);
+        ui->cant1->setVisible(false);
+
+        delete timer_colision;
+        delete pers;
+
+        delete scene1;
+        //emit main_menu();
+    }
+    else if (num== 1){
+        delete timer_colision;
+        delete enemy1;
+        delete enemy2;
+        delete enemy3;
+
+        ui->label->setVisible(false);
+        ui->label_2->setVisible(false);
+        ui->enemy1->setVisible(false);
+        ui->enemy2->setVisible(false);
+        ui->enemy3->setVisible(false);
+        ui->cant2->setVisible(false);
+        ui->cant3->setVisible(false);
+        ui->cant1->setVisible(false);
+
+
+
+        delete scene1;
+        //emit main_menu();
+    }
 
 }
 
