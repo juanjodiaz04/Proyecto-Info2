@@ -8,14 +8,52 @@ game::game(QWidget *parent)
 
 
     ui->setupUi(this);
-    set_level1();
+    set_menu();
+
+    /*Cambios de escena*/
+    connect(ui->pushButton,SIGNAL(clicked(bool)),this,SLOT(sel_lvl1()));
+    connect(ui->pushButton_2,SIGNAL(clicked(bool)),this,SLOT(sel_lvl2()));
+
+    connect(ui->pushButton,SIGNAL(clicked(bool)),this,SLOT(slot_choose_char()));
+    connect(ui->pushButton_2,SIGNAL(clicked(bool)),this,SLOT(slot_choose_char()));
+
+    connect(ui->pushButton_3,SIGNAL(clicked(bool)),this,SLOT(sel_rick()));
+    connect(ui->pushButton_4,SIGNAL(clicked(bool)),this,SLOT(sel_morty()));
+
+    connect(ui->pushButton_3,SIGNAL(clicked(bool)),this,SLOT(set_lvl()));
+    connect(ui->pushButton_4,SIGNAL(clicked(bool)),this,SLOT(set_lvl()));
 
 
 }
 
 void game::set_level1()
 {
-    scene1= new QGraphicsScene();
+    /*Elementos invisibles en la escena*/
+    ui->pushButton->setVisible(false);
+    ui->pushButton_2->setVisible(false);
+    ui->pushButton_3->setVisible(false);
+    ui->pushButton_4->setVisible(false);
+    ui->label_3->setVisible(false);
+    ui->label_4->setVisible(false);
+
+
+
+    /*Elementos visibles en la escena*/
+    ui->cant1->setVisible(true);
+    ui->cant2->setVisible(true);
+    ui->cant3->setVisible(true);
+    ui->enemy1->setVisible(true);
+    ui->enemy2->setVisible(true);
+    ui->enemy3->setVisible(true);
+    ui->label->setVisible(true);
+    ui->label_2->setVisible(true);
+
+
+    /*Eliminar escenas anteriores*/
+    delete menu;
+    delete choose_char;
+
+    scene1 = new QGraphicsScene();
     ui->graphicsView->setScene(scene1);
 
     QImage Bg(":/new/prefix1/sprites/FONDO1.png");
@@ -27,10 +65,7 @@ void game::set_level1()
 
     update_text();
 
-    int char_num = 1;
-
-
-    pers = new main_character(char_num);//rick 1
+    pers = new main_character(char_num); //rick 1
     scene1->addItem(pers);
     main_exist = true;
 
@@ -67,6 +102,11 @@ void game::set_level1()
     QObject::connect(enemy1,SIGNAL(delete_tammy()),this,SLOT(remove_enemy()));
     QObject::connect(enemy2,SIGNAL(delete_tickets()),this,SLOT(remove_enemy2()));
     QObject::connect(enemy3,SIGNAL(delete_story_master()),this,SLOT(remove_enemy3()));
+}
+
+void game::set_level2()
+{
+
 }
 
 void game::keyPressEvent(QKeyEvent *e)
@@ -312,7 +352,109 @@ void game::finish_level1(int num)
 
 }
 
+void game::set_menu()
+{
+    /*Elementos invisibles en la escena*/
+    ui->cant1->setVisible(false);
+    ui->cant2->setVisible(false);
+    ui->cant3->setVisible(false);
+    ui->enemy1->setVisible(false);
+    ui->enemy2->setVisible(false);
+    ui->enemy3->setVisible(false);
+    ui->label->setVisible(false);
+    ui->label_2->setVisible(false);
+    ui->pushButton_3->setVisible(false);
+    ui->pushButton_4->setVisible(false);
 
+
+    /*Elementos visibles en la escena*/
+    ui->pushButton->setVisible(true);
+    ui->pushButton_2->setVisible(true);
+    ui->label_3->setVisible(true);
+    ui->label_4->setVisible(true);
+
+
+    menu = new QGraphicsScene();
+    ui->graphicsView->setScene(menu);
+    QImage Bg(":/new/prefix1/sprites/menu_BG2.jpg");
+    QBrush Bgimg(Bg);
+    ui->graphicsView->setBackgroundBrush(Bgimg);
+    int sc_factor = 1;
+    menu->setSceneRect(0,0,(ui->graphicsView->width() - 2)/sc_factor,(ui->graphicsView->height() - 2)/sc_factor);
+    ui->graphicsView->scale(sc_factor,sc_factor);
+}
+
+
+
+void game::slot_menu()
+{
+    set_menu();
+}
+
+void game::set_lvl()
+{
+    if (lvl_num == 1)
+    {
+        set_level1();
+    }
+    else if (lvl_num == 2)
+    {
+        set_level2();
+    }
+}
+
+void game::slot_choose_char()
+{
+    /*Elementos invisibles en la escena*/
+    ui->cant1->setVisible(false);
+    ui->cant2->setVisible(false);
+    ui->cant3->setVisible(false);
+    ui->enemy1->setVisible(false);
+    ui->enemy2->setVisible(false);
+    ui->enemy3->setVisible(false);
+    ui->label->setVisible(false);
+    ui->label_2->setVisible(false);
+
+    ui->pushButton->setVisible(false);
+    ui->pushButton_2->setVisible(false);
+    ui->label_3->setVisible(false);
+    ui->label_4->setVisible(false);
+
+
+    /*Elementos visibles en la escena*/
+    ui->pushButton_3->setVisible(true);
+    ui->pushButton_4->setVisible(true);
+
+
+    choose_char = new QGraphicsScene();
+    ui->graphicsView->setScene(choose_char);
+    QImage Bg(":/new/prefix1/sprites/menu_BG2.jpg");
+    QBrush Bgimg(Bg);
+    ui->graphicsView->setBackgroundBrush(Bgimg);
+    int sc_factor = 1;
+    choose_char->setSceneRect(0,0,(ui->graphicsView->width() - 2)/sc_factor,(ui->graphicsView->height() - 2)/sc_factor);
+    ui->graphicsView->scale(sc_factor,sc_factor);
+}
+
+void game::sel_lvl1()
+{
+    lvl_num = 1;
+}
+
+void game::sel_lvl2()
+{
+    lvl_num = 2;
+}
+
+void game::sel_rick()
+{
+    char_num = 1;
+}
+
+void game::sel_morty()
+{
+    char_num = 0;
+}
 
 void game::remove_enemy()
 {

@@ -48,5 +48,9 @@
         <file>sprites/explosion2.png</file>
         <file>sprites/explosion3.png</file>
         <file>sprites/explosion4.png</file>
+        <file>sprites/menu_BG.png</file>
+        <file>sprites/menu_BG2.jpg</file>
+        <file>sprites/morty_sel.png</file>
+        <file>sprites/rick_sel.png</file>
     </qresource>
 </RCC>

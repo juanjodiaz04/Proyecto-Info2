@@ -36,7 +36,11 @@ public:
     QList <ammunition*> balas;
     QList <enemy*> enemigos;
 
-     void set_level1();
+    /*Establecer niveles*/
+    int lvl_num = 0;
+    void set_level1();
+    void set_level2();
+
 signals:
     void colision();
 
@@ -48,22 +52,40 @@ signals:
 private:
     Ui::game *ui;
 
+    /*Escenas*/
+    QGraphicsScene *menu;
+    QGraphicsScene *choose_char;
     QGraphicsScene *scene1;
+    QGraphicsScene *scene2;
+
+    /* Mapa? */
     QGraphicsPixmapItem *level1;
+
+    /* Elementos */
     main_character *pers;
     ammunition *bala;
 
+    /*Establecer la escena de menu*/
+    void set_menu();
 
+    /*Enemigos*/
     QString dir;
     enemy *enemy1;
     enemy *enemy2;
     enemy *enemy3;
+
+    /*personaje principal*/
+    int char_num;
     bool main_exist = false;
 
 public slots:
-
-    // set levels
-    //void set_level1();
+    void slot_menu();
+    void set_lvl();
+    void slot_choose_char();
+    void sel_lvl1();
+    void sel_lvl2();
+    void sel_rick();
+    void sel_morty();
 
     //colisiones level1
     void colision_enemy_bala();
