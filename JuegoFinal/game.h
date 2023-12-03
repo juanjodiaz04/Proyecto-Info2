@@ -52,6 +52,7 @@ private:
     enemy *enemy1;
     enemy *enemy2;
     enemy *enemy3;
+    bool main_exist = false;
 
 public slots:
     void colision_enemy_bala();

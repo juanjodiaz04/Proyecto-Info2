@@ -25,6 +25,7 @@ game::game(QWidget *parent)
 
     pers = new main_character(char_num);//rick 1
     scene1->addItem(pers);
+    main_exist = true;
 
     //creacion enemigos
     enemy1= new enemy(1,*pers);
@@ -60,45 +61,47 @@ game::game(QWidget *parent)
 
 void game::keyPressEvent(QKeyEvent *e)
 {
-    if (e->key()==Qt::Key_W && pers->pos().y() >= 0 )
-    {
+    if (main_exist){
+        if (e->key()==Qt::Key_W && pers->pos().y() >= 0 )
+        {
 
 
-        pers->moveup();
+            pers->moveup();
 
-        dir= "up";
-    }
-    if (e->key()==Qt::Key_Space )
-    {
-        bala= new ammunition(":/new/prefix1/sprites/48.png",pers->pos().x(),pers->pos().y(),dir);
-        scene1->addItem(bala);
-        balas.append(bala);
+            dir= "up";
+        }
+        if (e->key()==Qt::Key_Space )
+        {
+            bala= new ammunition(":/new/prefix1/sprites/48.png",pers->pos().x(),pers->pos().y(),dir);
+            scene1->addItem(bala);
+            balas.append(bala);
 
-    }
+        }
 
-    if (e->key()==Qt::Key_A && pers->pos().x() >= 0 )
-    {
+        if (e->key()==Qt::Key_A && pers->pos().x() >= 0 )
+        {
 
-        //obst_collition(e);
-        pers->moveleft();
+            //obst_collition(e);
+            pers->moveleft();
 
-        dir= "left";
-    }
-    if (e->key()==Qt::Key_D && pers->pos().x() <= 450 )
-    {
+            dir= "left";
+        }
+        if (e->key()==Qt::Key_D && pers->pos().x() <= 450 )
+        {
 
-        //obst_collition(e);
-        pers->moveright();
+            //obst_collition(e);
+            pers->moveright();
 
-        dir= "right";
-    }
-    if (e->key()==Qt::Key_S && pers->pos().y() <= 450 )
-    {
+            dir= "right";
+        }
+        if (e->key()==Qt::Key_S && pers->pos().y() <= 450 )
+        {
 
-        //obst_collition(e);
-        pers->movedown();
+            //obst_collition(e);
+            pers->movedown();
 
-        dir= "down";
+            dir= "down";
+        }
     }
 
 
@@ -172,6 +175,7 @@ void game::colision_character_enemy()
             if (pers->health<=0){
                 timer_colision_pers->stop();
                 delete pers;
+                main_exist = false;
                 break;
             }
         }
