@@ -239,7 +239,15 @@ void main_character::movedown()
 
 void main_character::colision()
 {
-    setPixmap(QPixmap (":/new/prefix1/sprites/rick_sinvida.png").scaled(50,50));
+    if (tipo == 0)
+    {
+        setPixmap(QPixmap (":/new/prefix1/sprites/morty_sel.png").scaled(50,50));
+    }
+    else if (tipo == 1)
+    {
+        setPixmap(QPixmap (":/new/prefix1/sprites/rick_sinvida.png").scaled(50,50));
+    }
+
 }
 
 QRectF main_character::boundingRect() const

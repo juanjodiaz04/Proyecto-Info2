@@ -244,6 +244,30 @@ background-repeat: none;
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_5">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>380</y>
+      <width>211</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#pushButton_3 {
+    background-color: #3498db;  /* Color de fondo */
+    color: #ffffff;  /* Color del texto */
+    border: 2px solid #2980b9;  /* Borde del botón */
+    border-radius: 5px;  /* Bordes redondeados */
+    padding: 5px 10px;  /* Espaciado interno */
+    font-size: 16px;  /* Tamaño de la fuente */
+    font-weight: bold;  /* Negrita */
+}</string>
+    </property>
+    <property name="text">
+     <string>Volver al Menu Principal</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

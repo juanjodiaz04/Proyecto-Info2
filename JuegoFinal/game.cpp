@@ -23,6 +23,8 @@ game::game(QWidget *parent)
     connect(ui->pushButton_3,SIGNAL(clicked(bool)),this,SLOT(set_lvl()));
     connect(ui->pushButton_4,SIGNAL(clicked(bool)),this,SLOT(set_lvl()));
 
+    connect(ui->pushButton_5,SIGNAL(clicked(bool)),this,SLOT(slot_menu()));
+
 
 }
 
@@ -35,6 +37,7 @@ void game::set_level1()
     ui->pushButton_4->setVisible(false);
     ui->label_3->setVisible(false);
     ui->label_4->setVisible(false);
+    ui->pushButton_5->setVisible(false);
 
 
 
@@ -48,10 +51,11 @@ void game::set_level1()
     ui->label->setVisible(true);
     ui->label_2->setVisible(true);
 
+    /*Enemigos vida*/
 
-    /*Eliminar escenas anteriores*/
-    delete menu;
-    delete choose_char;
+    aux1 = false;
+    aux2 = false;
+    aux3 = false;
 
     scene1 = new QGraphicsScene();
     ui->graphicsView->setScene(scene1);
@@ -185,7 +189,7 @@ void game::update_text()
 void game::colision_enemy_bala()
 {
 
-    if (enemigos.size()== 0){
+    if (enemigos.size() == 0){
         emit end_level1(0);
     }
     else{
@@ -230,28 +234,27 @@ void game::colision_character_enemy()
             pers->health -= enemigos.at(j)->damage;
             pers->colision();
             if (pers->health<=0){
-                timer_colision_pers->stop();
-                delete pers;
-                main_exist = false;
                 emit end_level1(1);
-
-
                 break;
             }
         }
     }
 }
 
+void game::remove_enemy()
+{
+    scene1->removeItem(enemy1);
+}
+
 void game::remove_enemy2(){
     scene1->removeItem(enemy2);
-    delete enemy2;
 }
 
 void game::remove_enemy3()
 {
     scene1->removeItem(enemy3);
-    delete enemy3;
 }
+
 
 void game::update_label()
 {
@@ -323,18 +326,21 @@ void game::finish_level1(int num)
         ui->cant3->setVisible(false);
         ui->cant1->setVisible(false);
 
-        delete timer_colision;
-        delete pers;
+        /* Stop Timers*/
+        timer_colision_pers->stop();
+        timer_colision->stop();
 
-        delete scene1;
-        set_menu(); //Finalización del nivel
+        /*Delete Elements*/
+        main_exist = false;
+        enemigos.clear();
+        balas.clear();
+
+        /*Scene Change*/
+        set_lvl_end(num);
     }
-    else if (num== 1){
-        delete timer_colision;
-        delete enemy1;
-        delete enemy2;
-        delete enemy3;
+    else if (num == 1){
 
+        /*Elementos invisibles en la escena*/
         ui->label->setVisible(false);
         ui->label_2->setVisible(false);
         ui->enemy1->setVisible(false);
@@ -344,10 +350,18 @@ void game::finish_level1(int num)
         ui->cant3->setVisible(false);
         ui->cant1->setVisible(false);
 
+        /* Stop Timers*/
+        timer_colision_pers->stop();
+        timer_colision->stop();
 
+        /*Delete Elements*/
+        main_exist = false;
 
-        delete scene1;
-        set_menu(); //Finalización del nivel
+        enemigos.clear();
+        balas.clear();
+
+        /*Scene Change*/
+        set_lvl_end(num);
     }
 
 }
@@ -365,6 +379,7 @@ void game::set_menu()
     ui->label_2->setVisible(false);
     ui->pushButton_3->setVisible(false);
     ui->pushButton_4->setVisible(false);
+    ui->pushButton_5->setVisible(false);
 
 
     /*Elementos visibles en la escena*/
@@ -382,6 +397,52 @@ void game::set_menu()
     int sc_factor = 1;
     menu->setSceneRect(0,0,(ui->graphicsView->width() - 2)/sc_factor,(ui->graphicsView->height() - 2)/sc_factor);
     ui->graphicsView->scale(sc_factor,sc_factor);
+}
+
+void game::set_lvl_end(int res)
+{
+    /*Elementos invisibles en la escena*/
+    ui->cant1->setVisible(false);
+    ui->cant2->setVisible(false);
+    ui->cant3->setVisible(false);
+    ui->enemy1->setVisible(false);
+    ui->enemy2->setVisible(false);
+    ui->enemy3->setVisible(false);
+    ui->label->setVisible(false);
+    ui->label_2->setVisible(false);
+    ui->pushButton_3->setVisible(false);
+    ui->pushButton_4->setVisible(false);
+    ui->pushButton->setVisible(false);
+    ui->pushButton_2->setVisible(false);
+    ui->label_3->setVisible(false);
+    ui->label_4->setVisible(false);
+
+
+    /*Elementos visibles en la escena*/
+    ui->pushButton_5->setVisible(true);
+
+    if (res == 0)
+    {
+        lvl_end = new QGraphicsScene();
+        ui->graphicsView->setScene(lvl_end);
+        QImage Bg(":/new/prefix1/sprites/Lose.png");
+        QBrush Bgimg(Bg);
+        ui->graphicsView->setBackgroundBrush(Bgimg);
+        int sc_factor = 1;
+        lvl_end->setSceneRect(0,0,(ui->graphicsView->width() - 2)/sc_factor,(ui->graphicsView->height() - 2)/sc_factor);
+        ui->graphicsView->scale(sc_factor,sc_factor);
+    }
+    else if (res == 1)
+    {
+        lvl_end = new QGraphicsScene();
+        ui->graphicsView->setScene(lvl_end);
+        QImage Bg(":/new/prefix1/sprites/Lose.png");
+        QBrush Bgimg(Bg);
+        ui->graphicsView->setBackgroundBrush(Bgimg);
+        int sc_factor = 1;
+        lvl_end->setSceneRect(0,0,(ui->graphicsView->width() - 2)/sc_factor,(ui->graphicsView->height() - 2)/sc_factor);
+        ui->graphicsView->scale(sc_factor,sc_factor);
+    }
 }
 
 
@@ -455,16 +516,6 @@ void game::sel_morty()
 {
     char_num = 0;
 }
-
-void game::remove_enemy()
-{
-
-    scene1->removeItem(enemy1);
-
-    delete enemy1;
-
-}
-
 
 game::~game()
 {

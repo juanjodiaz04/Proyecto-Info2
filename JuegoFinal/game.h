@@ -57,6 +57,7 @@ private:
     QGraphicsScene *choose_char;
     QGraphicsScene *scene1;
     QGraphicsScene *scene2;
+    QGraphicsScene *lvl_end;
 
     /* Mapa? */
     QGraphicsPixmapItem *level1;
@@ -65,8 +66,9 @@ private:
     main_character *pers;
     ammunition *bala;
 
-    /*Establecer la escena de menu*/
+    /*Establecer la escenas*/
     void set_menu();
+    void set_lvl_end(int res);
 
     /*Enemigos*/
     QString dir;

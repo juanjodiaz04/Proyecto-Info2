@@ -52,5 +52,6 @@
         <file>sprites/menu_BG2.jpg</file>
         <file>sprites/morty_sel.png</file>
         <file>sprites/rick_sel.png</file>
+        <file>sprites/Lose.png</file>
     </qresource>
 </RCC>
