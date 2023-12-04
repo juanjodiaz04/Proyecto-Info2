@@ -327,7 +327,7 @@ void game::finish_level1(int num)
         delete pers;
 
         delete scene1;
-        //emit main_menu();
+        set_menu(); //Finalización del nivel
     }
     else if (num== 1){
         delete timer_colision;
@@ -347,7 +347,7 @@ void game::finish_level1(int num)
 
 
         delete scene1;
-        //emit main_menu();
+        set_menu(); //Finalización del nivel
     }
 
 }
@@ -462,8 +462,6 @@ void game::remove_enemy()
     scene1->removeItem(enemy1);
 
     delete enemy1;
-
-
 
 }
 
