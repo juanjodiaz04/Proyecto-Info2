@@ -128,8 +128,8 @@ void game::set_level2()
     ui->enemy1->setVisible(false);
     ui->enemy2->setVisible(false);
     ui->enemy3->setVisible(false);
-    ui->label->setVisible(false);
-    ui->label_2->setVisible(false);
+    ui->label->setVisible(true);
+    ui->label_2->setVisible(true);
 
     /*Enemigos vida*/
 
@@ -164,6 +164,11 @@ void game::set_level2()
     enemy3->setPos(440,20);
     enemy4->setPos(440,250);
 
+    enemigos.push_back(enemy1);
+    enemigos.push_back(enemy2);
+    enemigos.push_back(enemy3);
+    enemigos.push_back(enemy4);
+
 
     scene1->addItem(enemy1);
     scene1->addItem(enemy2);
@@ -172,8 +177,13 @@ void game::set_level2()
 
     time_torres = new QTimer();
     timer_torres1 = new QTimer();
-    time_torres->start(3000);
-    timer_torres1->start(2500);
+    time_torres->start(4000);
+    timer_torres1->start(2000);
+
+    timer_colision_pers= new QTimer();
+    timer_colision_pers->start(1000);
+
+    connect(timer_colision_pers,SIGNAL(timeout()),this,SLOT(colision_main_bala()));
 
     connect(time_torres,SIGNAL(timeout()),this,SLOT(shoot_enemys()));
     connect(timer_torres1,SIGNAL(timeout()),this,SLOT(shoot_enemys1()));
@@ -325,6 +335,20 @@ void game::colision_character_enemy()
     for (int j = 0 ;j<enemigos.size();j++){
         if(pers->collidesWithItem(enemigos[j],Qt::IntersectsItemBoundingRect)){
             pers->health -= enemigos.at(j)->damage;
+            pers->colision();
+            if (pers->health<=0){
+                emit end_level1(1);
+                break;
+            }
+        }
+    }
+}
+
+void game::colision_main_bala()
+{
+    for (int j = 0 ;j<balas.size();j++){
+        if(pers->collidesWithItem(balas[j],Qt::IntersectsItemBoundingRect)){
+            pers->health -= balas.at(j)->damage;
             pers->colision();
             if (pers->health<=0){
                 emit end_level1(1);

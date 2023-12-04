@@ -98,6 +98,9 @@ public slots:
     void colision_enemy_bala();
     void colision_character_enemy();
 
+    //colisiones level2
+    void colision_main_bala();
+
     //eliminar enemigos
     void remove_enemy();
     void remove_enemy2();
@@ -110,6 +113,7 @@ public slots:
     // timer creacion de balas
     void shoot_enemys();
     void shoot_enemys1();
+
 
 
 };

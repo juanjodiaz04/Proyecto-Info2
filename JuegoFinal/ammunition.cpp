@@ -33,7 +33,7 @@ ammunition::ammunition(int x, int y ,QString direction, int tipo)
     if(tipo==2){
          QTransform rotation;
          rotation.rotate(180);
-
+         damage= 10;
 
         timer->start(1000*T);
         setPixmap ((QPixmap(":/new/prefix1/sprites/48.png").scaled(width,height)).transformed(rotation));
@@ -43,7 +43,7 @@ ammunition::ammunition(int x, int y ,QString direction, int tipo)
     if(tipo==3){
         QTransform rotation;
         rotation.rotate(180);
-
+         damage= 10;
 
         timer->start(1000*T);
         setPixmap ((QPixmap(":/new/prefix1/sprites/48.png").scaled(width,height)).transformed(rotation));
