@@ -9,12 +9,14 @@
 #include <QKeyEvent>
 #include <QEventLoop>
 #include "enemy.h"
+#include "main_character.h"
+#include <cmath>
 
 class ammunition: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    ammunition( QString name,int posx,int posy,QString dir);
+    ammunition( int posx,int posy,QString dir, int tipo);
     void setShoot();
     int damage, posx,posy ;
     QTimer *timer;
@@ -31,8 +33,11 @@ public:
     QRectF boundingRect() const;
 
 
+
 public slots:
     void moveup();
+    void updatePosition();
+    void updatePosition1();
 
 
 

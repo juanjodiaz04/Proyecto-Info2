@@ -1,29 +1,58 @@
 #include "ammunition.h"
 
-ammunition::ammunition(QString name,int x, int y ,QString direction)
+ammunition::ammunition(int x, int y ,QString direction, int tipo)
 {
 
-    posx= x;
-    posy = y;
-    setPos(posx,posy);
-    height = 40;
-    width = 40;
-    damage= 10;
-
     timer = new QTimer(this);
+
     A=9;
     Vo= 2;
     T = 0.01;
-    timer->start(1000*T);
+
     //Periodo de muestreo en segundos
     n = 0;
     k = 2;//Factor de velocidad
-    dir1=direction;
-    setShoot();
-    connect(timer,SIGNAL(timeout()),this,SLOT(moveup()));
+
+    posx= x;
+    posy = y;
+
+    height = 40;
+    width = 40;
+    if (tipo==1){
+        timer->start(1000*T);
+
+        setPos(posx,posy);
+
+        damage= 10;
 
 
+        dir1=direction;
+        setShoot();
+        connect(timer,SIGNAL(timeout()),this,SLOT(moveup()));
+    }
+    if(tipo==2){
+         QTransform rotation;
+         rotation.rotate(180);
+
+
+        timer->start(1000*T);
+        setPixmap ((QPixmap(":/new/prefix1/sprites/48.png").scaled(width,height)).transformed(rotation));
+        connect(timer,SIGNAL(timeout()),this,SLOT(updatePosition()));
+
+    }
+    if(tipo==3){
+        QTransform rotation;
+        rotation.rotate(180);
+
+
+        timer->start(1000*T);
+        setPixmap ((QPixmap(":/new/prefix1/sprites/48.png").scaled(width,height)).transformed(rotation));
+        connect(timer,SIGNAL(timeout()),this,SLOT(updatePosition1()));
+
+    }
 }
+
+
 void ammunition::setShoot(){
     if (dir1 == "up"){
         posx+=7;
@@ -96,4 +125,31 @@ void ammunition::moveup(){
         n++;
     }
 
+}
+
+void ammunition::updatePosition() {
+    // Calcular las nuevas posiciones utilizando la ecuación de movimiento parabólico
+
+    posx = posx + k;
+    posy=  posy - k * T*n + 0.5 * A * std::pow(T*n, 2);
+
+    // Actualizar la posición del objeto
+    setPos(posx, posy);
+
+    // Incrementar el tiempo
+    n++;
+}
+
+void ammunition::updatePosition1() {
+    // Calcular las nuevas posiciones utilizando la ecuación de movimiento parabólico
+
+
+    posx = posx - k;
+    posy=  posy - k * T*n + 0.5 * A * std::pow(T*n, 2);
+
+    // Actualizar la posición del objeto
+    setPos(posx, posy);
+
+    // Incrementar el tiempo
+    n++;
 }

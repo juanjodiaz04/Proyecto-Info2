@@ -31,6 +31,8 @@ public:
 
     QTimer *timer_colision;
     QTimer *timer_colision_pers;
+    QTimer *time_torres;
+    QTimer *timer_torres1;
     QTimer *labels;
 
     QList <ammunition*> balas;
@@ -49,6 +51,7 @@ signals:
     void main_menu();
 
 
+
 private:
     Ui::game *ui;
 
@@ -64,6 +67,7 @@ private:
 
     /* Elementos */
     main_character *pers;
+    main_character *pers1;
     ammunition *bala;
 
     /*Establecer la escenas*/
@@ -75,6 +79,7 @@ private:
     enemy *enemy1;
     enemy *enemy2;
     enemy *enemy3;
+    enemy *enemy4;
 
     /*personaje principal*/
     int char_num;
@@ -102,6 +107,9 @@ public slots:
     void update_label();
 
     void finish_level1(int num);
+    // timer creacion de balas
+    void shoot_enemys();
+    void shoot_enemys1();
 
 
 };

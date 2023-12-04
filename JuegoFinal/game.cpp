@@ -110,7 +110,100 @@ void game::set_level1()
 
 void game::set_level2()
 {
+    /*Elementos invisibles en la escena*/
+    ui->pushButton->setVisible(false);
+    ui->pushButton_2->setVisible(false);
+    ui->pushButton_3->setVisible(false);
+    ui->pushButton_4->setVisible(false);
+    ui->label_3->setVisible(false);
+    ui->label_4->setVisible(false);
+    ui->pushButton_5->setVisible(false);
 
+
+
+    /*Elementos visibles en la escena*/
+    ui->cant1->setVisible(false);
+    ui->cant2->setVisible(false);
+    ui->cant3->setVisible(false);
+    ui->enemy1->setVisible(false);
+    ui->enemy2->setVisible(false);
+    ui->enemy3->setVisible(false);
+    ui->label->setVisible(false);
+    ui->label_2->setVisible(false);
+
+    /*Enemigos vida*/
+
+    aux1 = false;
+    aux2 = false;
+    aux3 = false;
+
+    scene1 = new QGraphicsScene();
+    ui->graphicsView->setScene(scene1);
+
+    QImage Bg(":/new/prefix1/sprites/Fondo2.jfif");
+    QBrush Bgimg(Bg);
+    ui->graphicsView->setBackgroundBrush(Bgimg);
+    int sc_factor = 1;
+    scene1->setSceneRect(0,0,(ui->graphicsView->width() - 2)/sc_factor,(ui->graphicsView->height() - 2)/sc_factor); //
+    ui->graphicsView->scale(sc_factor,sc_factor);
+
+    //update_text();
+
+    pers = new main_character(char_num); //rick 1
+    scene1->addItem(pers);
+    main_exist = true;
+
+    //creacion enemigos
+    enemy1= new enemy(4,*pers);
+    enemy2= new enemy(4,*pers);
+    enemy3= new enemy(4,*pers);
+    enemy4= new enemy(4,*pers);
+
+    enemy1->setPos(10,80);
+    enemy2->setPos(10,400);
+    enemy3->setPos(440,20);
+    enemy4->setPos(440,250);
+
+
+    scene1->addItem(enemy1);
+    scene1->addItem(enemy2);
+    scene1->addItem(enemy3);
+    scene1->addItem(enemy4);
+
+    time_torres = new QTimer();
+    timer_torres1 = new QTimer();
+    time_torres->start(3000);
+    timer_torres1->start(2500);
+
+    connect(time_torres,SIGNAL(timeout()),this,SLOT(shoot_enemys()));
+    connect(timer_torres1,SIGNAL(timeout()),this,SLOT(shoot_enemys1()));
+
+
+
+
+
+
+
+/*
+ *
+    timer_colision = new QTimer();
+    timer_colision->start(100);
+
+    timer_colision_pers= new QTimer();
+    timer_colision_pers->start(1000);
+
+
+    connect(timer_colision,SIGNAL(timeout()),this,SLOT(colision_enemy_bala()));
+    connect(timer_colision_pers,SIGNAL(timeout()),this,SLOT(colision_character_enemy()));
+
+    //final de levels
+    connect(this,SIGNAL(end_level1(int)),this,SLOT(finish_level1(int)));
+
+    // remover enemigos por vida
+    QObject::connect(enemy1,SIGNAL(delete_tammy()),this,SLOT(remove_enemy()));
+    QObject::connect(enemy2,SIGNAL(delete_tickets()),this,SLOT(remove_enemy2()));
+    QObject::connect(enemy3,SIGNAL(delete_story_master()),this,SLOT(remove_enemy3()));
+*/
 }
 
 void game::keyPressEvent(QKeyEvent *e)
@@ -126,7 +219,7 @@ void game::keyPressEvent(QKeyEvent *e)
         }
         if (e->key()==Qt::Key_Space )
         {
-            bala= new ammunition(":/new/prefix1/sprites/48.png",pers->pos().x(),pers->pos().y(),dir);
+            bala= new ammunition(pers->pos().x(),pers->pos().y(),dir,1);
             scene1->addItem(bala);
             balas.append(bala);
 
@@ -364,6 +457,28 @@ void game::finish_level1(int num)
         set_lvl_end(num);
     }
 
+}
+
+void game::shoot_enemys()
+{
+
+    bala= new ammunition(10,400,"up",2);
+    scene1->addItem(bala);
+    balas.push_back(bala);
+    bala= new ammunition(440,20,"up",3);
+    scene1->addItem(bala);
+    balas.push_back(bala);
+
+}
+void game::shoot_enemys1()
+{
+    bala= new ammunition(10,80,"up",2);
+    scene1->addItem(bala);
+    balas.push_back(bala);
+
+    bala= new ammunition(440,250,"up",3);
+    scene1->addItem(bala);
+    balas.push_back(bala);
 }
 
 void game::set_menu()

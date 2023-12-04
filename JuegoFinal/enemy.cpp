@@ -64,7 +64,11 @@ enemy::enemy(int tipo1, main_character &personaje)
         connect(timer,SIGNAL(timeout()),this,SLOT(move_story_master()));
 
     }
-
+    if (tipo==4){
+       setPixmap (QPixmap(":/new/prefix1/sprites/Nave_1.png").scaled(width,height));
+       posx= 10;
+       posy = 30;
+    }
 
 
     setPos(posx,posy);

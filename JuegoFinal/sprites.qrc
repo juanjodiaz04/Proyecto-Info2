@@ -53,5 +53,7 @@
         <file>sprites/morty_sel.png</file>
         <file>sprites/rick_sel.png</file>
         <file>sprites/Lose.png</file>
+        <file>sprites/Fondo2.jfif</file>
+        <file>sprites/Nave_1.png</file>
     </qresource>
 </RCC>
