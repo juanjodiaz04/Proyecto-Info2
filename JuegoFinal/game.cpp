@@ -38,6 +38,8 @@ void game::set_level1()
     ui->label_3->setVisible(false);
     ui->label_4->setVisible(false);
     ui->pushButton_5->setVisible(false);
+    ui->label_5->setVisible(false);
+    ui->label_6->setVisible(false);
 
 
 
@@ -120,6 +122,8 @@ void game::set_level2()
     ui->label_3->setVisible(false);
     ui->label_4->setVisible(false);
     ui->pushButton_5->setVisible(false);
+    ui->label_5->setVisible(false);
+    ui->label_6->setVisible(false);
 
 
 
@@ -482,6 +486,8 @@ void game::finish_level1(int num)
         ui->cant2->setVisible(false);
         ui->cant3->setVisible(false);
         ui->cant1->setVisible(false);
+        ui->label_5->setVisible(false);
+        ui->label_6->setVisible(false);
 
         /* Stop Timers*/
         timer_colision_pers->stop();
@@ -573,7 +579,9 @@ void game::set_menu()
     ui->label_2->setVisible(false);
     ui->pushButton_3->setVisible(false);
     ui->pushButton_4->setVisible(false);
+
     ui->pushButton_5->setVisible(false);
+    ui->label_5->setVisible(false);
 
 
     /*Elementos visibles en la escena*/
@@ -581,6 +589,7 @@ void game::set_menu()
     ui->pushButton_2->setVisible(true);
     ui->label_3->setVisible(true);
     ui->label_4->setVisible(true);
+    ui->label_6->setVisible(true);
 
 
     menu = new QGraphicsScene();
@@ -610,6 +619,8 @@ void game::set_lvl_end(int res)
     ui->pushButton_2->setVisible(false);
     ui->label_3->setVisible(false);
     ui->label_4->setVisible(false);
+    ui->label_5->setVisible(false);
+    ui->label_6->setVisible(false);
 
 
     /*Elementos visibles en la escena*/
@@ -675,11 +686,14 @@ void game::slot_choose_char()
     ui->pushButton_2->setVisible(false);
     ui->label_3->setVisible(false);
     ui->label_4->setVisible(false);
+    ui->label_5->setVisible(false);
+    ui->label_6->setVisible(false);
 
 
     /*Elementos visibles en la escena*/
     ui->pushButton_3->setVisible(true);
     ui->pushButton_4->setVisible(true);
+    ui->label_5->setVisible(true);
 
 
     choose_char = new QGraphicsScene();
