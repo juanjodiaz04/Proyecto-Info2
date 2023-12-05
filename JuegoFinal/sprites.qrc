@@ -55,5 +55,6 @@
         <file>sprites/Lose.png</file>
         <file>sprites/Fondo2.jfif</file>
         <file>sprites/Nave_1.png</file>
+        <file>sprites/Portal.png</file>
     </qresource>
 </RCC>

@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+
 #include <QMainWindow>
 #include <QString>
 #include <QGraphicsScene>
@@ -34,6 +35,8 @@ public:
     QTimer *time_torres;
     QTimer *timer_torres1;
     QTimer *labels;
+    QTimer *timer_win;
+    QTimer *timer_aux;
 
     QList <ammunition*> balas;
     QList <enemy*> enemigos;
@@ -43,10 +46,14 @@ public:
     void set_level1();
     void set_level2();
 
+    QGraphicsEllipseItem *e1;
+
+
 signals:
     void colision();
 
     void end_level1(int num);
+    void end_level2(int num);
 
     void main_menu();
 
@@ -80,6 +87,7 @@ private:
     enemy *enemy2;
     enemy *enemy3;
     enemy *enemy4;
+    enemy *enemy5;
 
     /*personaje principal*/
     int char_num;
@@ -110,9 +118,11 @@ public slots:
     void update_label();
 
     void finish_level1(int num);
+    void finish_level2(int num);
     // timer creacion de balas
     void shoot_enemys();
     void shoot_enemys1();
+    void came_goal();
 
 
 
