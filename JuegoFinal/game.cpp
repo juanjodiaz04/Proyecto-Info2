@@ -194,8 +194,8 @@ void game::set_level2()
 
     time_torres = new QTimer();
     timer_torres1 = new QTimer();
-    time_torres->start(4000);
-    timer_torres1->start(2000);
+    time_torres->start(800);
+    timer_torres1->start(1000);
 
     timer_colision_pers= new QTimer();
     timer_colision_pers->start(1000);
