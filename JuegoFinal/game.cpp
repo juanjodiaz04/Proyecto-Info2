@@ -619,7 +619,7 @@ void game::set_lvl_end(int res)
     {
         lvl_end = new QGraphicsScene();
         ui->graphicsView->setScene(lvl_end);
-        QImage Bg(":/new/prefix1/sprites/Lose.png");
+        QImage Bg(":/new/prefix1/sprites/menu_BG.png");
         QBrush Bgimg(Bg);
         ui->graphicsView->setBackgroundBrush(Bgimg);
         int sc_factor = 1;

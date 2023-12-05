@@ -56,5 +56,7 @@
         <file>sprites/Fondo2.jfif</file>
         <file>sprites/Nave_1.png</file>
         <file>sprites/Portal.png</file>
+        <file>sprites/hard_level.png</file>
+        <file>sprites/medium_level.png</file>
     </qresource>
 </RCC>
